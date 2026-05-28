@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Productos — auteko</title>
+  <meta name="description" content="Automatizaciones listas para usar. Comprá, configurá, lanzá." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Georgia&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --night:  #1C2B35;
+      --fjord:  #7BBDD4;
+      --sea:    #3A8BAD;
+      --tide:   #4A7A96;
+      --linen:  #F2EDE4;
+      --sand:   #E3D9CC;
+      --dune:   #C8B99A;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--night);
+      color: var(--linen);
+      font-family: 'Courier Prime', monospace;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 48px;
+      border-bottom: 1px solid rgba(123,189,212,0.12);
+    }
+
+    .logo {
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: var(--linen);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+
+    .logo span { color: var(--fjord); }
+
+    nav a.nav-link {
+      color: var(--dune);
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    nav a.nav-link:hover { color: var(--fjord); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 80px 48px 48px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--fjord);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: normal;
+      line-height: 1.15;
+      color: var(--linen);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--fjord);
+    }
+
+    .hero p {
+      font-size: 15px;
+      color: var(--dune);
+      line-height: 1.75;
+      max-width: 520px;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: var(--fjord);
+      margin: 48px auto;
+      opacity: 0.4;
+    }
+
+    /* ── GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 48px 80px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: rgba(242,237,228,0.04);
+      border: 1px solid rgba(123,189,212,0.15);
+      border-radius: 4px;
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: border-color 0.25s, background 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      border-color: rgba(123,189,212,0.45);
+      background: rgba(242,237,228,0.07);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--fjord);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .card-tag {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--fjord);
+    }
+
+    .card h2 {
+      font-family: Georgia, serif;
+      font-size: 22px;
+      font-weight: normal;
+      color: var(--linen);
+      line-height: 1.3;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: var(--dune);
+      line-height: 1.75;
+      flex: 1;
+    }
+
+    .card-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card-features li {
+      font-size: 12px;
+      color: var(--sand);
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .card-features li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--fjord);
+      font-size: 11px;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 20px;
+      border-top: 1px solid rgba(123,189,212,0.1);
+      margin-top: auto;
+    }
+
+    .price {
+      font-family: Georgia, serif;
+      font-size: 26px;
+      color: var(--linen);
+    }
+
+    .price span {
+      font-family: 'Courier Prime', monospace;
+      font-size: 12px;
+      color: var(--dune);
+      margin-left: 4px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--fjord);
+      color: var(--night);
+      font-family: 'Courier Prime', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 12px 22px;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn:hover {
+      background: var(--linen);
+      transform: translateY(-1px);
+    }
+
+    /* ── COMING SOON CARD ── */
+    .card.soon {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .card.soon::before { display: none; }
+
+    .soon-badge {
+      position: absolute;
+      top: 20px; right: 20px;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dune);
+      border: 1px solid rgba(200,185,154,0.3);
+      padding: 4px 10px;
+      border-radius: 2px;
+    }
+
+    .soon .card-footer {
+      opacity: 0.5;
+    }
+
+    /* ── DOTS ── */
+    .dots {
+      text-align: center;
+      padding: 0 48px 80px;
+      color: var(--dune);
+      font-size: 22px;
+      letter-spacing: 12px;
+      opacity: 0.35;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(123,189,212,0.1);
+      padding: 32px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 100%;
+    }
+
+    footer p {
+      font-size: 11px;
+      color: var(--dune);
+      opacity: 0.5;
+      letter-spacing: 0.06em;
+    }
+
+    footer a {
+      font-size: 11px;
+      color: var(--fjord);
+      text-decoration: none;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+
+    footer a:hover { opacity: 1; }
+
+    /* ── FADE IN ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    .fade-in:nth-child(1) { animation-delay: 0.05s; }
+    .fade-in:nth-child(2) { animation-delay: 0.15s; }
+    .fade-in:nth-child(3) { animation-delay: 0.25s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 20px 24px; }
+      .hero { padding: 48px 24px 32px; }
+      .grid { padding: 0 24px 60px; }
+      footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+      .dots { padding: 0 24px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="logo">aut<span>eko</span></a>
+    <a href="/" class="nav-link">← Volver</a>
+  </nav>
+
+  <section class="hero">
+    <p class="hero-label">Productos</p>
+    <h1>Automatizaciones listas<br />para <em>usar</em>.</h1>
+    <p>Cada producto incluye el workflow en n8n, la plantilla en Google Sheets y una guía de setup paso a paso. Comprás, configurás, y tu operación empieza a correr sola.</p>
+  </section>
+
+  <div class="divider"></div>
+
+  <div class="grid">
+
+    <!-- PRODUCTO 1 — SALES REPORT V2 -->
+    <div class="card fade-in">
+      <p class="card-tag">Reporte automatizado</p>
+      <h2>Sales Report v2</h2>
+      <p>Tu reporte de ventas semanal generado y enviado automáticamente por email. Sin abrir planillas, sin copiar datos. Conectás tu fuente, configurás el destinatario y listo.</p>
+      <ul class="card-features">
+        <li>Workflow n8n listo para importar</li>
+        <li>Plantilla Google Sheets incluida</li>
+        <li>Email HTML con resumen ejecutivo</li>
+        <li>Guía de setup con sticky notes</li>
+        <li>Soporte por email 7 días</li>
+      </ul>
+      <div class="card-footer">
+        <div class="price">$29.99 <span>USD</span></div>
+        <a href="REEMPLAZAR_CON_LINK_MP" class="btn">Comprar →</a>
+      </div>
+    </div>
+
+    <!-- COMING SOON 1 -->
+    <div class="card soon fade-in">
+      <span class="soon-badge">Próximamente</span>
+      <p class="card-tag">Gestión de leads</p>
+      <h2>Lead Tracker</h2>
+      <p>Capturá leads desde cualquier formulario, guardálos en Sheets y activá una secuencia de emails automática. Tu pipeline siempre actualizado.</p>
+      <ul class="card-features">
+        <li>Integración con Tally, Typeform y más</li>
+        <li>Secuencia de follow-up automática</li>
+        <li>Dashboard de conversión incluido</li>
+      </ul>
+      <div class="card-footer">
+        <div class="price">$29.99 <span>USD</span></div>
+        <span class="btn" style="opacity:0.4; cursor:default;">Próximamente</span>
+      </div>
+    </div>
+
+    <!-- COMING SOON 2 -->
+    <div class="card soon fade-in">
+      <span class="soon-badge">Próximamente</span>
+      <p class="card-tag">Atención al cliente</p>
+      <h2>WhatsApp Auto-Reply</h2>
+      <p>Respondé preguntas frecuentes por WhatsApp de forma automática y escalá a una persona cuando la consulta lo requiere.</p>
+      <ul class="card-features">
+        <li>Respuestas configurables por keyword</li>
+        <li>Escalado automático a humano</li>
+        <li>Log de conversaciones en Sheets</li>
+      </ul>
+      <div class="card-footer">
+        <div class="price">$49.99 <span>USD</span></div>
+        <span class="btn" style="opacity:0.4; cursor:default;">Próximamente</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="dots">· · ·</div>
+
+  <footer>
+    <p>© 2026 auteko · Intelligent flows. Built to last.</p>
+    <a href="mailto:lucas@auteko.io">lucas@auteko.io</a>
+  </footer>
+
+</body>
+</html>
